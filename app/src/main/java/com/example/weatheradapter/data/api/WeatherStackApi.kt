@@ -1,3 +1,8 @@
+
+import com.example.weatheradapter.model.WeatherStackResponse
+import retrofit2.http.GET
+import retrofit2.http.Query
+
 interface WeatherStackApi {
     @GET("current")
     suspend fun getCurrentWeather(

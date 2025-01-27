@@ -1,3 +1,8 @@
+import com.example.weatheradapter.model.WeatherStackResponse
+import kotlinx.coroutines.withContext
+import java.io.IOException
+import javax.inject.Inject
+
 class WeatherStackRepository @Inject constructor(
     private val weatherStackApi: WeatherStackApi,
     private val dispatchers: CoroutineDispatchers
@@ -37,14 +42,7 @@ class WeatherStackRepository @Inject constructor(
             description = current.weather_descriptions.firstOrNull() ?: "",
             windSpeed = current.wind_speed.toDouble(),
             city = location.name,
-            country = location.country,
             timestamp = System.currentTimeMillis(),
-            feelsLike = current.feelslike.toDouble(),
-            pressure = current.pressure,
-            visibility = current.visibility,
-            isDay = current.is_day == "yes",
-            uvIndex = current.uv_index,
-            precipitation = current.precipitation
         )
     }
 }

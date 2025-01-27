@@ -1,15 +1,12 @@
-package com.example.weatheradapter.WeatherActivity
+package com.example.weatheradapter.ui.weather
 
 import Weather
 import WeatherViewModel
 import android.os.Bundle
-import android.renderscript.ScriptGroup
-import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
-import com.example.weatheradapter.R
 import com.example.weatheradapter.databinding.ActivityWeatherBinding
 import kotlinx.coroutines.launch
 
