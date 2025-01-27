@@ -1,12 +1,15 @@
 package com.example.weatheradapter.WeatherActivity
 
+import Weather
+import WeatherViewModel
 import android.os.Bundle
+import android.renderscript.ScriptGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.lifecycleScope
 import com.example.weatheradapter.R
+import kotlinx.coroutines.launch
 
 
 class WeatherActivity : AppCompatActivity() {
