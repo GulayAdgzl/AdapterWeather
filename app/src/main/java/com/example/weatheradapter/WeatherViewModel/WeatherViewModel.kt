@@ -1,18 +1,28 @@
-class WeatherViewModel(
-    private val weatherRepository: WeatherRepository
+@HiltViewModel
+class WeatherViewModel @Inject constructor(
+    private val weatherStackRepository: WeatherStackRepository
 ) : ViewModel() {
+    
     private val _weatherState = MutableStateFlow<WeatherUiState>(WeatherUiState.Initial)
     val weatherState: StateFlow<WeatherUiState> = _weatherState.asStateFlow()
 
     fun fetchWeather(city: String) {
         viewModelScope.launch {
             _weatherState.value = WeatherUiState.Loading
-            try {
-                val weather = weatherRepository.getWeatherForCity(city)
-                _weatherState.value = WeatherUiState.Success(weather)
-            } catch (e: Exception) {
-                _weatherState.value = WeatherUiState.Error(e.message ?: "Unknown error")
-            }
+            
+            weatherStackRepository.getWeatherForCity(city)
+                .onSuccess { weather ->
+                    _weatherState.value = WeatherUiState.Success(weather)
+                }
+                .onFailure { error ->
+                    val errorMessage = when (error) {
+                        is CityNotFoundException -> "City not found"
+                        is NetworkException -> "Check your internet connection"
+                        is InvalidApiKeyException -> "API key error"
+                        else -> error.message ?: "Unknown error occurred"
+                    }
+                    _weatherState.value = WeatherUiState.Error(errorMessage)
+                }
         }
     }
 }
